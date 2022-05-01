@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container_logins">
+        <form action="" class="login_form" method="POST">
+            {% csrf_token %}
+            <div class="imgcontainer">
+              <img src="{% static 'img/img_568657.png' %}" alt="Avatar" class="avatar">
+            </div>
+
+            <div class="container_login">
+                {{ form.as_p }}
+              <button type="submit" class="login_button">Login</button>
+            </div>
+
+            <div class="container_login div_login_down">
+              <a href="{% url 'CustomUser:signup' %}">Create new profile</a>
+            </div>
+          </form>
+    </div>
+
+{% endblock content %}
