@@ -945,7 +945,7 @@ select option
 {
 	display: block;
 	position: relative;
-	font-size: 16px;
+	font-size: 20px;
 	font-weight: 300;
 	color: #000000;
 	line-height: 46px;
@@ -1669,7 +1669,7 @@ select option
 {
 	display: block;
 	position: relative;
-	max-width: 100%;
+	max-width: 65%;
 }
 .product_content
 {
@@ -1967,10 +1967,7 @@ select option
 }
 .product_new
 {
-	display: none;
 	background: #0e8ce4;
-	visibility: hidden;
-	opacity: 0;
 }
 .product_discount
 {

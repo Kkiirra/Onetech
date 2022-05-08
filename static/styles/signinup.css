@@ -1,0 +1,81 @@
+.div_login {
+    text-align: center;
+    display: block;
+}
+
+.div_login p input {
+  margin-bottom: 8px;
+  display: block;
+
+}
+.div_login button {
+  display: block;
+}
+
+.div_login a {
+  display: block;
+  color: blue;
+  padding-bottom: 6px;
+}
+
+/* LOGIN */
+/* Bordered form */
+.login_form {
+  border: 3px solid #f1f1f1;
+}
+
+/* Full-width inputs */
+.container_login p input {
+  padding: 6px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Set a style for all buttons */
+.login_button {
+  background-color: #1c7ab8;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+.login_button:hover {
+  opacity: 0.8;
+}
+/* Center the avatar image inside this container */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+/* Avatar image */
+img.avatar {
+  width: 22%;
+  border-radius: 50%;
+}
+
+.container_login {
+  padding: 20px;
+}
+/* Add padding to containers */
+.div_login_down {
+  text-align: right;
+  background-color: #f1f1f1;
+  color: #1c7ab8;
+}
+
+.container_logins {
+  width: 600px;
+  margin: 80px auto;
+}
+
+.container_login ul {
+  list-style-type: none;
+}

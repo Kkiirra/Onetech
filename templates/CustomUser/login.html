@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/blog_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/signinup.css' %}">
+{% endblock head %}
+
 {% block content %}
     <div class="container_logins">
         <form action="" class="login_form" method="POST">
             {% csrf_token %}
             <div class="imgcontainer">
-              <img src="{% static 'img/img_568657.png' %}" alt="Avatar" class="avatar">
+              <img src="{% static 'images/img_568657.png' %}" alt="Avatar" class="avatar">
             </div>
 
             <div class="container_login">
