@@ -12,7 +12,7 @@ def signup(request):
             return redirect('kinamefilm:home')
     else:
         form = SignUpForm()
-    return render(request, 'CustomUser/register.html', {'form': form})
+    return render(request, 'customuser/register.html', {'form': form})
 
 
 def login_view(request):
@@ -24,15 +24,17 @@ def login_view(request):
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
-                return redirect('CustomUser:home')
+                return redirect('home:home_page')
             else:
-                raise ValueError('lol')
+                form.add_error(None, 'Invalid email or password')
+        else:
+            form.add_error(None, 'Invalid input data')
     else:
         form = LogInForm()
 
-    return render(request, 'CustomUser/login.html', {'form': form})
+    return render(request, 'customuser/login.html', {'form': form})
 
 
 def logout_view(request):
     logout(request)
-    return redirect('CustomUser:home')
+    return redirect('customuser:home')

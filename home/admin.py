@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Product, Photo, Category, Top_seller
+from .models import Product, Photo, Category, Top_seller, Brand
+
+
+@admin.register(Brand)
+class BrandAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug', ]
+    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Category)
@@ -10,6 +16,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class PhotoAdmin(admin.StackedInline):
     model = Photo
+    max_num = 2
 
 
 @admin.register(Product)

@@ -54,8 +54,8 @@
 							</div>
 							<div class="top_bar_user">
 								<div class="user_icon"><img src="{% static 'images/user.svg' %}" alt=""></div>
-								<div><a href="{% url 'CustomUser:signup' %}">Register</a></div>
-								<div><a href="{% url 'CustomUser:login' %}">Sign in</a></div>
+								<div><a href="{% url 'customuser:signup' %}">Register</a></div>
+								<div><a href="{% url 'customuser:login' %}">Sign in</a></div>
 							</div>
 						</div>
 					</div>
@@ -160,36 +160,17 @@
 								<ul class="standard_dropdown main_nav_dropdown">
 									<li><a href="{% url 'home:home_page' %}">Home<i class="fas fa-chevron-down"></i></a></li>
 									<li class="hassubs">
-										<a href="#">Shop</a>
+										<a href="{% url 'shop:shop_page' %}">Shop</a>
 									</li>
 									<li class="hassubs">
 										<a href="#">Featured Brands<i class="fas fa-chevron-down"></i></a>
 										<ul>
-											<li>
-												<a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-												<ul>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-												</ul>
-											</li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+											{% for brand in brands %}
+											<li><a href="{{ brand.get_absolute_url }}">{{ brand.name }}<i class="fas fa-chevron-down"></i></a></li>
+											{% endfor %}
 										</ul>
 									</li>
-									<li class="hassubs">
-										<a href="#">Pages<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">Shop<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Product<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Blog<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Blog Post<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Regular Post<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Cart<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Contact<i class="fas fa-chevron-down"></i></a></li>
-										</ul>
-									</li>
+
 									<li><a href="#">Blog<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="#">Contact<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
@@ -432,19 +413,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</div>
 </div>
 
+{% block scripts %}
+{% endblock scripts %}
 
-<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
-<script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
-<script src="{% static 'plugins/greensock/TweenMax.min.js' %}"></script>
-<script src="{% static 'plugins/greensock/TimelineMax.min.js' %}"></script>
-<script src="{% static 'plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
-<script src="{% static 'plugins/greensock/animation.gsap.min.js' %}"></script>
-<script src="{% static 'plugins/greensock/ScrollToPlugin.min.js' %}"></script>
-<script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
-<script src="{% static 'plugins/slick-1.8.0/slick.js' %}"></script>
-<script src="{% static 'plugins/easing/easing.js' %}"></script>
-<script src="{% static 'js/custom.js' %}"></script>
 </body>
 
 </html>

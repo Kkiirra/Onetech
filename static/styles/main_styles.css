@@ -2757,6 +2757,13 @@ select option
 	color: rgba(0,0,0,0.5);
 	margin-bottom: 26px;
 }
+
+.advert_title {
+   text-overflow: hidden;
+}
+.advert_text {
+   text-overflow: hidden;
+}
 .advert_title a
 {
 	font-size: 18px;

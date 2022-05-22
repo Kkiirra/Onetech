@@ -18,8 +18,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'CustomUser',
+    'customuser',
     'home',
+    'shop',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +50,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'home.views.categories',
+                'shop.views.brands',
             ],
         },
     },
@@ -58,7 +61,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Techshopdatabase',
+        'NAME': 'Techdatabase',
         'USER': 'admin',
         'PASSWORD': 'admin',
         'HOST': '127.0.0.1',
@@ -91,7 +94,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-AUTH_USER_MODEL = 'CustomUser.CustomUser'
+AUTH_USER_MODEL = 'customuser.customuser'
 STATIC_URL = 'static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
 MEDIA_URL = 'media/'

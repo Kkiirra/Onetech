@@ -79,3 +79,8 @@ img.avatar {
 .container_login ul {
   list-style-type: none;
 }
+
+.errorlist li {
+    padding-left:20px;
+    color:red;
+}
