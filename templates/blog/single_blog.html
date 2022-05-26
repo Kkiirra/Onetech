@@ -17,7 +17,7 @@
 				<div class="col-lg-8 offset-lg-2">
 					<div class="single_post_title">{{ blog.title }}</div>
 					<div class="single_post_text">
-						<p>{{ blog.head }}</p>
+						<p>{{ blog.head | safe }}</p>
 						<div class="single_post_quote text-center">
 							<div class="quote_image"><img src="{% static 'images/quote.png' %}" alt=""></div>
 							{% for quote in blog.blogs.all %}
@@ -26,7 +26,7 @@
 							{% endfor %}
 						</div>
 
-						<p>{{ blog.body }}</p>
+						<p>{{ blog.body | safe }}</p>
 					</div>
 				</div>
 			</div>

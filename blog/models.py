@@ -1,14 +1,15 @@
 from django.db import models
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 
 class Blog(models.Model):
     title = models.CharField(max_length=225)
     slug = models.SlugField(max_length=255, blank=True, null=True)
     preview_title = models.CharField(max_length=60, blank=True, null=True)
-    head = models.TextField()
+    head = RichTextField()
     date = models.DateTimeField(blank=True, null=True)
-    body = models.TextField()
+    body = RichTextField()
     preview_photo = models.ImageField(upload_to='media/')
 
     def get_absolute_url(self):

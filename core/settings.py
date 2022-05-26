@@ -22,6 +22,8 @@ INSTALLED_APPS = [
     'home',
     'shop',
     'blog',
+    'ckeditor',
+    'basket',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'home.views.categories',
                 'shop.views.brands',
+                'basket.context_processors.basket',
             ],
         },
     },

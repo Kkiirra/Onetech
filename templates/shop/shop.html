@@ -69,7 +69,14 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span>{{ products_found }}</span> products found</div>
+							<div class="shop_product_count"><span>
+								{% if products_found %}
+								{{ products_found }}
+								{% else %}
+								0
+								{% endif %}
+
+							</span> products found</div>
 							<div class="shop_sorting">
 								<span>Sort by:</span>
 								<ul>
@@ -86,7 +93,7 @@
 						</div>
 						<div class="product_grid">
 							<div class="product_grid_border"></div>
-
+							{% if products %}
 							<!-- Product Item -->
 							{% for product in products %}
 							<div class="product_item is_new">
@@ -110,6 +117,9 @@
 								</ul>
 							</div>
 							{% endfor %}
+							{% else %}
+								No one product with this name... Please try again :)
+							{% endif %}
 						</div>
 						<!-- Shop Page Navigation -->
 

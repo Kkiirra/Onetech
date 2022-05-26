@@ -32,3 +32,9 @@ def home_page(request):
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug, is_active=True)
     return render(request, '#', {'product': product})
+
+
+def search_product(request):
+    user_request = request.GET.get('search')
+    products = Product.objects.filter(product_name__icontains=user_request)
+    return render(request, 'shop/shop.html', {'products': products, 'products_found': len(products)})
