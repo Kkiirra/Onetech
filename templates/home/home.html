@@ -196,7 +196,15 @@
 													<button id="add-button" value="{{ product.id }}" class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
+												{% if product.user_wishlist %}
+													<div class="product_fav active">
+														<a href=""><i class="fas fa-heart"></i></a>
+													</div>
+												{% else %}
+													<div class="product_fav">
+													<a href=""><i class="fas fa-heart"></i></a>
+													</div>
+												{% endif %}
 											<ul class="product_marks">
 												{% if product.new %}
 													<li class="product_mark product_new">new</li>
@@ -894,19 +902,38 @@
 <script src="{% static 'plugins/slick-1.8.0/slick.js' %}"></script>
 <script src="{% static 'plugins/easing/easing.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>
+<!--<script>-->
+<!--    $(".product_cart_button").click(function(){-->
+<!--        $.ajax({-->
+<!--            url: '{% url "basket:basket_add" %}',-->
+<!--            type: 'POST',-->
+<!--            data: {-->
+<!--                productid: $(this).val(),-->
+<!--                action: 'post',-->
+<!--                csrfmiddlewaretoken: "{{csrf_token}}"-->
+<!--            },-->
+<!--            success: function(response) {-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 <script>
-    $(".product_cart_button").click(function(){
-        $.ajax({
-            url: '{% url "basket:basket_add" %}',
-            type: 'POST',
-            data: {
-                productid: $(this).val(),
-                action: 'post',
-                csrfmiddlewaretoken: "{{csrf_token}}"
-            },
-            success: function(response) {
-            }
-        });
-    });
+	$(document).on('click', '#add-button', function (e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '{% url "basket:basket_add" %}',
+			data: {
+				productid: $(this).val(),
+				product_quantity: 1,
+				csrfmiddlewaretoken: "{{csrf_token}}",
+				action: 'post'
+			},
+			success: function(json) {
+				document.getElementById("cart_qty").innerHTML = json.qty,
+				document.getElementById("cart_total").innerHTML = ("$ " + json.basket_total)
+			}
+		});
+	})
 </script>
 {% endblock scripts %}

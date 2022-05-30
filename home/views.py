@@ -1,4 +1,6 @@
 from django.db.models import Q
+from django.http import HttpResponseRedirect
+
 from blog.models import Blog
 from django.shortcuts import render, get_object_or_404
 from .models import Product, Category
@@ -8,6 +10,15 @@ def categories(request):
     return {
         'categories': Category.objects.order_by('name')
     }
+
+
+def add_to_wishlist(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if product.is_faivorite.filter(id=request.user.id).exists():
+        product.is_faivorite.remove(request.user)
+    else:
+        product.is_faivorite.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 def home_page(request):

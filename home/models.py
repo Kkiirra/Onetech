@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.db.models.signals import pre_delete, pre_save, post_save
 from django.dispatch import receiver
+from django.conf import settings
 import os
 import shutil
 
