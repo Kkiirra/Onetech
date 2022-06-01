@@ -56,7 +56,11 @@
 							<div class="top_bar_user">
 								<div class="user_icon"><img src="{% static 'images/user.svg' %}" alt=""></div>
 								<div><a href="{% url 'customuser:signup' %}">Register</a></div>
-								<div><a href="{% url 'customuser:login' %}">Sign in</a></div>
+								{% if request.user.is_authenticated %}
+									<div><a href="{% url 'customuser:logout' %}">Log out</a></div>
+								{% else %}
+									<div><a href="{% url 'customuser:login' %}">Sign In</a></div>
+								{% endif %}
 							</div>
 						</div>
 					</div>
@@ -109,7 +113,13 @@
 								<div class="wishlist_icon"><img src="{% static 'images/heart.png' %}" alt=""></div>
 								<div class="wishlist_content">
 									<div class="wishlist_text"><a href="#">Wishlist</a></div>
-									<div class="wishlist_count">0</div>
+									<div id="wish_qty" class="wishlist_count">
+									{% if favorites %}
+										{{ favorites }}
+									{% else %}
+										0
+									{% endif %}
+									</div>
 								</div>
 							</div>
 

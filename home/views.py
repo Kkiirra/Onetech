@@ -1,24 +1,27 @@
 from django.db.models import Q
-from django.http import HttpResponseRedirect
-
+from django.http import JsonResponse, HttpResponseRedirect
 from blog.models import Blog
-from django.shortcuts import render, get_object_or_404
-from .models import Product, Category
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Product
+from customuser.views import login_view
 
 
-def categories(request):
-    return {
-        'categories': Category.objects.order_by('name')
-    }
-
-
-def add_to_wishlist(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    if product.is_faivorite.filter(id=request.user.id).exists():
-        product.is_faivorite.remove(request.user)
+def add_delete_wishlist(request):
+    if request.user.is_authenticated:
+        product_id = request.POST.get('productid')
+        print(product_id)
+        product = get_object_or_404(Product, id=product_id)
+        user_favorite = request.user.favorites.all()
+        count_fav = len(user_favorite)
+        if product not in user_favorite:
+            request.user.favorites.add(product)
+            count_fav += 1
+        else:
+            request.user.favorites.remove(product)
+            count_fav -= 1
+        return JsonResponse({'user_favorite': count_fav})
     else:
-        product.is_faivorite.add(request.user)
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        return JsonResponse({'url': '/login/'}, status=404)
 
 
 def home_page(request):

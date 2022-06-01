@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from home.models import Product
 
 
 class CustomUserManager(BaseUserManager):
@@ -35,6 +36,7 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     email = models.EmailField('email address', unique=True)
+    favorites = models.ManyToManyField(Product, related_name='favorited_by')
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
     objects = CustomUserManager()

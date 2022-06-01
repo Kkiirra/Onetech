@@ -5,12 +5,6 @@ from django.core.paginator import Paginator
 from home.models import Category, Brand
 
 
-def brands(request):
-    return {
-        'brands': Brand.objects.all()
-    }
-
-
 def shop_page(request):
     products = Product.objects.all()
 

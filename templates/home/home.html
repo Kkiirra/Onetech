@@ -12,6 +12,7 @@
 {% endblock head %}
 
 {% block content %}
+
 <div class="banner">
 		<div class="banner_background" style="background-image:url({% static 'images/banner_background.jpg' %})"></div>
 		<div class="container fill_height">
@@ -177,7 +178,9 @@
 							<!-- Product Panel -->
 							<div class="product_panel panel active">
 								<div class="featured_slider slider">
+									{% with request.user.favorites.all as favorite_products %}
 									{% for product in products %}
+
 									<div class="featured_slider_item">
 										<div class="border_active"></div>
 										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
@@ -196,15 +199,9 @@
 													<button id="add-button" value="{{ product.id }}" class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
-												{% if product.user_wishlist %}
-													<div class="product_fav active">
-														<a href=""><i class="fas fa-heart"></i></a>
+													<div id="{{ product.id }}" class="{% if product in favorite_products %} product_fav active {% else %} product_fav {% endif %}">
+														<i class="fas fa-heart"></i>
 													</div>
-												{% else %}
-													<div class="product_fav">
-													<a href=""><i class="fas fa-heart"></i></a>
-													</div>
-												{% endif %}
 											<ul class="product_marks">
 												{% if product.new %}
 													<li class="product_mark product_new">new</li>
@@ -213,6 +210,8 @@
 										</div>
 									</div>
 									{% endfor %}
+									{% endwith %}
+
 								</div>
 								<div class="featured_slider_dots_cover"></div>
 							</div>
@@ -931,7 +930,29 @@
 			},
 			success: function(json) {
 				document.getElementById("cart_qty").innerHTML = json.qty,
-				document.getElementById("cart_total").innerHTML = ("$ " + json.basket_total)
+				document.getElementById("cart_total").innerHTML = ("$ " + json.basket_total),
+				$(this).text("Added")
+			}
+		});
+	})
+</script>
+<script>
+	$(document).on('click', '.product_fav', function (e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '{% url "home:wish_add" %}',
+			data: {
+				productid: $(this).attr("id"),
+					csrfmiddlewaretoken: "{{csrf_token}}",
+					action: 'post'
+			},
+			success: function(json) {
+							document.getElementById("wish_qty").innerHTML = json.user_favorite
+							},
+			error: function(json) {
+				window.location.href = '/login/',
+				alert('Only authorized users can add a product to the wish list. Anon user can use cart.')
 			}
 		});
 	})
