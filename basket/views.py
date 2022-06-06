@@ -6,9 +6,11 @@ from home.models import Product
 
 def basket_add(request):
     basket = Basket(request)
+    data = {}
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('productid'))
         product_qty = int(request.POST.get('product_quantity'))
         product = Product.objects.get(pk=product_id)
         basket.add(product=product, quantity=product_qty)
-    return JsonResponse({'qty': basket.__len__(), 'basket_total': basket.elements_sum()})
+        data.update({'qty': basket.__len__(), 'basket_total': basket.elements_sum(), 'element_id': product_id})
+    return JsonResponse(data, status=200)

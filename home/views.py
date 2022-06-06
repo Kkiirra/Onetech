@@ -9,17 +9,18 @@ from customuser.views import login_view
 def add_delete_wishlist(request):
     if request.user.is_authenticated:
         product_id = request.POST.get('productid')
-        print(product_id)
         product = get_object_or_404(Product, id=product_id)
+        print(product)
         user_favorite = request.user.favorites.all()
         count_fav = len(user_favorite)
+
         if product not in user_favorite:
             request.user.favorites.add(product)
             count_fav += 1
         else:
             request.user.favorites.remove(product)
             count_fav -= 1
-        return JsonResponse({'user_favorite': count_fav})
+        return JsonResponse({'user_favorite': count_fav}, status=200)
     else:
         return JsonResponse({'url': '/login/'}, status=404)
 
