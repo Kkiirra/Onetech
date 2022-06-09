@@ -43,22 +43,14 @@
 											<li><a href="#">Belorussian</a></li>
 										</ul>
 									</li>
-									<li>
-										<a href="#">$ US dollar<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">Zł Złoty</a></li>
-											<li><a href="#">USD Dollars</a></li>
-											<li><a href="#">BYN Belorussian ruble</a></li>
-										</ul>
-									</li>
 								</ul>
 							</div>
 							<div class="top_bar_user">
 								<div class="user_icon"><img src="{% static 'images/user.svg' %}" alt=""></div>
-								<div><a href="{% url 'customuser:signup' %}">Register</a></div>
 								{% if request.user.is_authenticated %}
 									<div><a href="{% url 'customuser:logout' %}">Log out</a></div>
 								{% else %}
+								<div><a href="{% url 'customuser:signup' %}">Register</a></div>
 									<div><a href="{% url 'customuser:login' %}">Sign In</a></div>
 								{% endif %}
 							</div>
@@ -137,7 +129,7 @@
 										</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="#">Cart</a></div>
+										<div class="cart_text"><a href="{% url 'basket:basket_page' %}">Cart</a></div>
 										<div class="cart_price" id="cart_total">$
 											{% if basket_sum %}
 												{{ basket_sum }}

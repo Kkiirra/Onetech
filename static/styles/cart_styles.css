@@ -1268,6 +1268,7 @@ select option
 {
 	font-size: 18px;
 	margin-top: 35px;
+	width: 150px;
 }
 .cart_item_text span
 {
@@ -1641,4 +1642,12 @@ select option
 .logos_list li:last-child
 {
 	margin-right: 0px;
+}
+
+.cart_link:hover {
+    color: sky;
+}
+
+.cart_link {
+    color: red;
 }

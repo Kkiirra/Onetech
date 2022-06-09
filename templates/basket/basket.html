@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/cart_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/cart_responsive.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+<div class="cart_section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 offset-lg-1">
+					<div class="cart_container">
+						<div class="cart_title">Shopping Cart</div>
+						<div class="cart_items">
+							<ul class="cart_list">
+								{% for item in basket %}
+									{% with product=item.product %}
+								<li class="cart_item clearfix" id="{{ product.id }}">
+									<div class="cart_item_image"><img src="{{ product.preview_photo.url }}" alt=""></div>
+									<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+										<div class="cart_item_name cart_info_col">
+											<div class="cart_item_title">Name</div>
+											<a class="cart_link" value="{{ product.id }}">Delete from cart</a>
+											<div class="cart_item_text">{{product.product_name}}</div>
+										</div>
+										<div class="cart_item_quantity cart_info_col">
+											<div class="cart_item_title">Quantity</div>
+											<div class="cart_item_text cart_qty_tem">{{item.qty}}</div>
+										</div>
+										<div class="cart_item_price cart_info_col">
+											<div class="cart_item_title cart_price_item">Price</div>
+											<div class="cart_item_text">${{ product.product_cost }}</div>
+										</div>
+										<div class="cart_item_total cart_info_col">
+											<div class="cart_item_title">Total</div>
+											<div class="cart_item_text">${{ item.total_price }}</div>
+										</div>
+									</div>
+								</li>
+									{% endwith %}
+								{% endfor %}
+
+							</ul>
+						</div>
+
+						<!-- Order Total -->
+						<div class="order_total">
+							<div class="order_total_content text-md-right">
+								<div class="order_total_title">Order Total:</div>
+								<div class="order_total_amount">${{ basket.elements_sum }}</div>
+							</div>
+						</div>
+
+						<div class="cart_buttons">
+							<button type="button" class="button cart_button_clear">Add to Cart</button>
+							<button type="button" class="button cart_button_checkout">Add to Cart</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/TweenMax.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/TimelineMax.min.js' %}"></script>
+<script src="{% static 'plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/animation.gsap.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/ScrollToPlugin.min.js' %}"></script>
+<script src="{% static 'plugins/easing/easing.js' %}"></script>
+<script src="{% static 'js/cart_custom.js' %}"></script>
+<script>
+	$(document).on('click', '.cart_link', function (e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '{% url "basket:basket_delete" %}',
+			data: {
+				productid: $(this).attr("value"),
+				csrfmiddlewaretoken: "{{csrf_token}}",
+				action: 'post'
+			},
+			success: function(json) {
+				$("#" + json.product).remove(),
+				$("#cart_total").text("$" + json.basket_total),
+				$("#cart_qty").text(json.basket_qty)
+			}
+		});
+	})
+</script>
+{% endblock scripts %}

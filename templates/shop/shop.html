@@ -95,6 +95,7 @@
 							<div class="product_grid_border"></div>
 							{% if products %}
 							<!-- Product Item -->
+							{% with request.user.favorites.all as favorite_products %}
 							{% for product in products %}
 							<div class="product_item is_new">
 								<div class="product_border"></div>
@@ -109,7 +110,9 @@
 									{% endif %}</div>
 									<div class="product_name"><div><a href="{{ product.get_absolute_url }}" tabindex="0">{{ product.product_name }}</a></div></div>
 								</div>
-								<div class="product_fav"><i class="fas fa-heart"></i></div>
+									<div value="{{ product.id }}" class="{% if product in favorite_products %} product_fav active {% else %} product_fav {% endif %}">
+										<i class="fas fa-heart"></i>
+									</div>
 								<ul class="product_marks">
 									{% if product.new %}
 										<li class="product_mark product_new">new</li>
@@ -117,6 +120,7 @@
 								</ul>
 							</div>
 							{% endfor %}
+							{% endwith %}
 							{% else %}
 								No one product with this name... Please try again :)
 							{% endif %}
@@ -179,95 +183,23 @@
 
 						<div class="owl-carousel owl-theme viewed_slider">
 							{% if recently_view %}
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_1.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225<span>$300</span></div>
-										<div class="viewed_name"><a href="#">Beoplay H7</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
+							{% for product in recently_view %}
 							<!-- Recently Viewed Item -->
 							<div class="owl-item">
 								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_2.jpg" alt=""></div>
+									<div class="viewed_image"><img src="{{ product.preview_photo.url }}" alt=""></div>
 									<div class="viewed_content text-center">
-										<div class="viewed_price">$379</div>
-										<div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
+										<div class="viewed_price">${{ product.product_cost }}</div>
+										<div class="viewed_name"><a href="{{ product.get_absolute_url }}">{{ product.product_name }}</a></div>
 									</div>
 									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
+										{% if product.new %}
 										<li class="item_mark item_new">new</li>
+										{% endif %}
 									</ul>
 								</div>
 							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_3.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225</div>
-										<div class="viewed_name"><a href="#">Samsung J730F...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_4.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$379</div>
-										<div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_5.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225<span>$300</span></div>
-										<div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_6.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$375</div>
-										<div class="viewed_name"><a href="#">Speedlink...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
+							{% endfor %}
 							{% else %}
 								No one Recently viewed item
 							{% endif %}
@@ -292,14 +224,14 @@
 
 						<div class="owl-carousel owl-theme brands_slider">
 
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_1.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_2.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_3.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_4.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_5.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_6.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_7.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_8.jpg" alt=""></div></div>
+						<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{% static 'images/brands_1.jpg' %}" alt=""></div></div>
+						<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{% static 'images/brands_2.jpg' %}" alt=""></div></div>
+						<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{% static 'images/brands_3.jpg' %}" alt=""></div></div>
+						<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{% static 'images/brands_4.jpg' %}" alt=""></div></div>
+						<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{% static 'images/brands_5.jpg' %}" alt=""></div></div>
+						<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{% static 'images/brands_6.jpg' %}" alt=""></div></div>
+						<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{% static 'images/brands_7.jpg' %}" alt=""></div></div>
+						<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{% static 'images/brands_8.jpg' %}" alt=""></div></div>
 
 						</div>
 
@@ -329,4 +261,25 @@
 	<script src="{% static 'plugins/jquery-ui-1.12.1.custom/jquery-ui.js' %}"></script>
 	<script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
 	<script src="{% static 'js/shop_custom.js' %}"></script>
+<script>
+	$(document).on('click', '.product_fav', function (e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '{% url "others:wish_add" %}',
+			data: {
+				productid: $(this).attr("value"),
+					csrfmiddlewaretoken: "{{csrf_token}}",
+					action: 'post'
+			},
+			success: function(json) {
+							document.getElementById("wish_qty").innerHTML = json.user_favorite
+							},
+			error: function(json) {
+				window.location.href = '/login/',
+				alert('Only authorized users can add a product to the wish list.')
+			}
+		});
+	})
+</script>
 {% endblock scripts %}
