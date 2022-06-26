@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from home.models import Product
 from .recently_viewed import Recently_viewed
+from django.core.mail import send_mail
 
 
 def recently_viewed(request):
@@ -31,3 +32,9 @@ def add_delete_wishlist(request):
         return JsonResponse({'user_favorite': count_fav}, status=200)
     else:
         return JsonResponse({'url': '/login/'}, status=404)
+
+
+def send_email(request):
+    user_email = request.POST.get('email')
+    send_mail('subject', 'body of the message', 'sender@example.com', ['receiver1@example.com', ])
+    return JsonResponse({'Was successfully sent'}, status=200)

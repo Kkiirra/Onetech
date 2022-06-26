@@ -9,7 +9,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('kinamefilm:home')
+            return redirect('home:home_page')
     else:
         form = SignUpForm()
     return render(request, 'customuser/register.html', {'form': form})

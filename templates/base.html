@@ -33,18 +33,7 @@
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{% static 'images/phone.png' %}" alt=""></div>+48 513 486 696</div>
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{% static 'images/mail.png' %}" alt=""></div><a href="mailto:kirillkozlovec11@mail.ru">kirillkozlovec11@mail.ru</a></div>
 						<div class="top_bar_content ml-auto">
-							<div class="top_bar_menu">
-								<ul class="standard_dropdown top_bar_dropdown">
-									<li>
-										<a href="#">English<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">Polish</a></li>
-											<li><a href="#">English</a></li>
-											<li><a href="#">Belorussian</a></li>
-										</ul>
-									</li>
-								</ul>
-							</div>
+
 							<div class="top_bar_user">
 								<div class="user_icon"><img src="{% static 'images/user.svg' %}" alt=""></div>
 								{% if request.user.is_authenticated %}
