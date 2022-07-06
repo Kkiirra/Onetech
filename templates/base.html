@@ -12,6 +12,7 @@
 <link href="{% static 'plugins/fontawesome-free-5.0.1/css/fontawesome-all.css' %}" rel="stylesheet" type="text/css">
 
 {% block head %}
+
 {% endblock head %}
 
 </head>
@@ -31,7 +32,7 @@
 				<div class="row">
 					<div class="col d-flex flex-row">
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{% static 'images/phone.png' %}" alt=""></div>+48 513 486 696</div>
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{% static 'images/mail.png' %}" alt=""></div><a href="mailto:kirillkozlovec11@mail.ru">kirillkozlovec11@mail.ru</a></div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{% static 'images/mail.png' %}" alt=""></div><a href="mailto:kirillkozlovec@gmail.com">kirillkozlovec@gmail.com</a></div>
 						<div class="top_bar_content ml-auto">
 
 							<div class="top_bar_user">
@@ -161,8 +162,8 @@
 							<!-- Main Nav Menu -->
 
 							<div class="main_nav_menu ml-auto">
-								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="{% url 'home:home_page' %}">Home<i class="fas fa-chevron-down"></i></a></li>
+								<ul class="standard_dropdown main_nav_dropdown navbar-link">
+									<li><a href="{% url 'home:home_page' %}" >Home<i class="fas fa-chevron-down"></i></a></li>
 									<li class="hassubs">
 										<a href="{% url 'shop:shop_page' %}">Shop</a>
 									</li>
@@ -231,7 +232,7 @@
 									</ul>
 								</li>
 								<li class="page_menu_item">
-									<a href="#">Home<i class="fa fa-angle-down"></i></a>
+									<a href="#" class="navbar-link">Home<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item has-children">
 									<a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
